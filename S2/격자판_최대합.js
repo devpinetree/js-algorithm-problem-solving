@@ -6,38 +6,65 @@
 const solution = (twoDArray) => {
   let result = Number.MIN_SAFE_INTEGER;
   let len = twoDArray.length;
-  let rowSum = new Array(len).fill(0),
-    columnSum = new Array(len).fill(0),
-    diagonalSum = [];
 
   for (let i = 0; i < len; i++) {
+    let rowSum = 0,
+      columnSum = 0;
     for (let j = 0; j < len; j++) {
-      rowSum[i] += twoDArray[i][j];
-      columnSum[i] += twoDArray[j][i];
+      rowSum += twoDArray[i][j];
+      columnSum += twoDArray[j][i];
     }
+    result = Math.max(result, rowSum, columnSum);
   }
-  diagonalSum.push(
-    twoDArray[0][0] +
-      twoDArray[1][1] +
-      twoDArray[2][2] +
-      twoDArray[3][3] +
-      twoDArray[4][4]
-  );
-  diagonalSum.push(
-    twoDArray[0][4] +
-      twoDArray[1][3] +
-      twoDArray[2][2] +
-      twoDArray[3][1] +
-      twoDArray[4][0]
-  );
-  result = Math.max(
-    Math.max.apply(null, rowSum),
-    Math.max.apply(null, columnSum),
-    Math.max.apply(null, diagonalSum)
-  );
+
+  let diagonalSum1 = 0,
+    diagonalSum2 = 0;
+  for (let i = 0; i < len; i++) {
+    diagonalSum1 += twoDArray[i][i];
+    diagonalSum2 += twoDArray[i][len - i - 1];
+  }
+
+  result = Math.max(result, diagonalSum1, diagonalSum2);
 
   return result;
 };
+
+// const solution = (twoDArray) => {
+//   let result = Number.MIN_SAFE_INTEGER;
+//   let len = twoDArray.length;
+
+//   let rowSum = new Array(len).fill(0),
+//     columnSum = new Array(len).fill(0),
+//     diagonalSum = [];
+
+//   for (let i = 0; i < len; i++) {
+//     for (let j = 0; j < len; j++) {
+//       rowSum[i] += twoDArray[i][j];
+//       columnSum[i] += twoDArray[j][i];
+//     }
+//   }
+//   diagonalSum.push(
+//     twoDArray[0][0] +
+//       twoDArray[1][1] +
+//       twoDArray[2][2] +
+//       twoDArray[3][3] +
+//       twoDArray[4][4]
+//   );
+//   diagonalSum.push(
+//     twoDArray[0][4] +
+//       twoDArray[1][3] +
+//       twoDArray[2][2] +
+//       twoDArray[3][1] +
+//       twoDArray[4][0]
+//   );
+//   result = Math.max(
+//     Math.max.apply(null, rowSum),
+//     Math.max.apply(null, columnSum),
+//     Math.max.apply(null, diagonalSum)
+//   );
+
+//   return result;
+// };
 
 solution([
   [10, 13, 10, 12, 15],
