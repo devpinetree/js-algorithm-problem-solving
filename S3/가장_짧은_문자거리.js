@@ -17,7 +17,6 @@ const solution = (str) => {
     else p++;
     result[i] = result[i] > p ? p : result[i];
   }
-  console.log(result);
   return result;
 };
 
